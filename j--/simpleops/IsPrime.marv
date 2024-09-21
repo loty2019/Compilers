@@ -1,0 +1,15 @@
+# Accepts n (int) from standard input and writes to standard output whether
+# n is prime (1) or not (0).
+
+# void main():
+
+0    read     r0          # read n
+1    calln    r12 4       # result = isPrime(n)
+2    write    r13         # write result
+3    halt                 # halt the machine
+
+# boolean isPrime(int n):
+#     input:  r0 = n
+#     output: r13 = 1 if n is prime and 0 otherwise
+
+...
