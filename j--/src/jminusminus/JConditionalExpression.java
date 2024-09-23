@@ -1,5 +1,7 @@
 package jminusminus;
 
+import static jminusminus.CLConstants.GOTO;
+
 /**
  * The AST node for a conditional expression.
  */
@@ -32,7 +34,12 @@ class JConditionalExpression extends JExpression {
      * {@inheritDoc}
      */
     public JExpression analyze(Context context) {
-        // TODO
+        condition = condition.analyze(context);
+        thenPart = thenPart.analyze(context);
+        elsePart = elsePart.analyze(context);
+        condition.type().mustMatchExpected(line, Type.BOOLEAN);
+        thenPart.type().mustMatchExpected(line, elsePart.type());
+        type = thenPart.type();
         return this;
     }
 
@@ -40,7 +47,22 @@ class JConditionalExpression extends JExpression {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        String elseLabel = output.createLabel();
+        String end = output.createLabel();
+
+        // Condition
+        condition.codegen(output, elseLabel, false);
+
+        // then
+        // had to import "import static jminusminus.CLConstants.GOTO;"
+        thenPart.codegen(output);
+        output.addBranchInstruction(GOTO, end);
+
+        // else
+        output.addLabel(elseLabel);
+        elsePart.codegen(output);
+
+        output.addLabel(end);
     }
 
     /**

@@ -255,7 +255,8 @@ class JUnaryPlusOp extends JUnaryExpression {
      * {@inheritDoc}
      */
     public JExpression analyze(Context context) {
-        // TODO
+        operand = operand.analyze(context);
+        type = operand.type();
         return this;
     }
 
@@ -263,7 +264,7 @@ class JUnaryPlusOp extends JUnaryExpression {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        operand.codegen(output);
     }
 }
 

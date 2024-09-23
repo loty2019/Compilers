@@ -72,6 +72,7 @@ class Scanner {
         reserved.put(TRUE.image(), TRUE);
         reserved.put(VOID.image(), VOID);
         reserved.put(WHILE.image(), WHILE);
+        reserved.put(DO.image(), DO);
 
         // Prime the pump.
         nextCh();
@@ -133,6 +134,12 @@ class Scanner {
             case ';':
                 nextCh();
                 return new TokenInfo(SEMI, line);
+            case ':':
+                nextCh();
+                return new TokenInfo(COLON, line);
+            case '?':
+                nextCh();
+                return new TokenInfo(QUESTION, line);
             case '-':
                 nextCh();
                 if (ch == '-') {
@@ -155,6 +162,9 @@ class Scanner {
             case '*':
                 nextCh();
                 return new TokenInfo(STAR, line);
+            case '%':
+                nextCh();
+                return new TokenInfo(REM, line);
             case '=':
                 nextCh();
                 if (ch == '=') {

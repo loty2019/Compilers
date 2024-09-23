@@ -1,5 +1,3 @@
-package simpleops;
-
 import java.util.ArrayList;
 
 import jminusminus.CLEmitter;
@@ -8,7 +6,7 @@ import static jminusminus.CLConstants.*;
 
 /**
  * This class programmatically generates the class file for the following Java application:
- *
+ * 
  * <pre>
  * public class IsPrime {
  *     // Entry point.
@@ -36,7 +34,7 @@ import static jminusminus.CLConstants.*;
 public class GenIsPrime {
     public static void main(String[] args) {
         CLEmitter e = new CLEmitter(true);
-
+        
         // Create an ArrayList instance to store modifiers
         ArrayList<String> modifiers = new ArrayList<String>();
 
@@ -120,7 +118,7 @@ public class GenIsPrime {
         // return true
         e.addNoArgInstruction(ICONST_1);
         e.addNoArgInstruction(IRETURN);
-
+        
         e.write();
     }
 }

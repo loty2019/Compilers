@@ -348,6 +348,14 @@ class Parser {
             JExpression test = parExpression();
             JStatement statement = statement();
             return new JWhileStatement(line, test, statement);
+        } else if (have(DO)) {
+            JStatement body = statement();
+            mustBe(WHILE);
+            mustBe(LPAREN);
+            JExpression condition = expression();
+            mustBe(RPAREN);
+            mustBe(SEMI);
+            return new JDoStatement(line, body, condition);
         } else {
             // Must be a statementExpression.
             JStatement statement = statementExpression();
@@ -671,6 +679,12 @@ class Parser {
         int line = scanner.token().line();
         boolean more = true;
         JExpression lhs = equalityExpression();
+        if (have(QUESTION)) {  // If a `?` is encountered, it's a conditional expression
+            JExpression trueExpr = expression();  // Parse the true branch after `?`
+            mustBe(COLON);  // Expect a `:` to separate the true and false branches
+            JExpression falseExpr = conditionalAndExpression();  // Parse the false branch
+            return new JConditionalExpression(line, lhs, trueExpr, falseExpr);  // Return a conditional expression node
+        }
         while (more) {
             if (have(LAND)) {
                 lhs = new JLogicalAndOp(line, lhs, equalityExpression());
@@ -771,6 +785,8 @@ class Parser {
                 lhs = new JMultiplyOp(line, lhs, unaryExpression());
             } else if (have(DIV)) {
                 lhs = new JDivideOp(line, lhs, unaryExpression());
+            } else if (have(REM)) {
+                lhs = new JRemainderOp(line, lhs, unaryExpression());
             } else {
                 more = false;
             }
@@ -795,6 +811,8 @@ class Parser {
             return new JPreIncrementOp(line, unaryExpression());
         } else if (have(MINUS)) {
             return new JNegateOp(line, unaryExpression());
+        } else if (have(PLUS)) {
+            return new JUnaryPlusOp(line, unaryExpression());
         } else {
             return simpleUnaryExpression();
         }

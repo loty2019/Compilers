@@ -131,6 +131,11 @@ enum TokenKind {
     ASSIGN("="),
 
     /**
+     * Operator, "&".
+     */
+    DO("do"),
+
+    /**
      * Operator, "--".
      */
     DEC("--"),
@@ -176,11 +181,27 @@ enum TokenKind {
     PLUS("+"),
 
     /**
-     * Operator, "".
+     * Operator, "/".
      */
     DIV("/"),
 
     /**
+     * Operator, "%".
+     */
+    REM("%"),
+
+    /**
+     * Operator, "?".
+     */
+    QUESTION("?"),
+
+    /**
+     * Operator, ":".
+     */
+    COLON(":"),
+
+    /**
+     *
      * Operator, "+=".
      */
     PLUS_ASSIGN("+="),

@@ -1,5 +1,3 @@
-package simpleops;
-
 import java.lang.Integer;
 import java.lang.System;
 

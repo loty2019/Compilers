@@ -1,5 +1,3 @@
-package simpleops;
-
 import java.lang.System;
 
 public class UnaryPlusFail {

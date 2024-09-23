@@ -1,5 +1,7 @@
 package jminusminus;
 
+import static jminusminus.CLConstants.GOTO;
+
 /**
  * The AST node for a do-statement.
  */
@@ -27,7 +29,10 @@ class JDoStatement extends JStatement {
      * {@inheritDoc}
      */
     public JStatement analyze(Context context) {
-        // TODO
+        // Analyze body and condition
+        body = (JStatement) body.analyze(context);
+        condition = condition.analyze(context);
+        condition.type().mustMatchExpected(line, Type.BOOLEAN);
         return this;
     }
 
@@ -35,7 +40,21 @@ class JDoStatement extends JStatement {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        // Labels for the start and end of the loop
+        String start = output.createLabel();
+        String end = output.createLabel();
+
+        // Beginning of the loop
+        output.addLabel(start);
+        body.codegen(output);
+        condition.codegen(output, end, false);  // Jump to endLabel if condition is false
+
+        // Condition is true so jump back to the start of the loop
+        // I had to import "import static jminusminus.CLConstants.GOTO;"
+        output.addBranchInstruction(GOTO, start);
+
+        // End of the loop
+        output.addLabel(end);
     }
 
     /**
