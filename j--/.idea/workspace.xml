@@ -4,20 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635c3b74-0e24-42bf-a84e-cbc6a9391ff1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="635c3b74-0e24-42bf-a84e-cbc6a9391ff1" name="Default Changelist" comment="ex1,3,4,5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/clemitter" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/clemitter.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/j--" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/j--.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/javaccj--" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/javaccj--.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/j--.iml" beforeDir="false" afterPath="$PROJECT_DIR$/j--.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jminusminus/JBinaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JBinaryExpression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jminusminus/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jminusminus/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/Scanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jminusminus/TokenInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/TokenInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/j--.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/j--.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/CharReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/CharReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JConditionalExpression.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JConditionalExpression.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JDoStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JDoStatement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JPostIncrementOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JPostIncrementOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JPreDecrementOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JPreDecrementOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JRemainderOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JRemainderOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JUnaryPlusOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JUnaryPlusOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/Parser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/Scanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/TokenInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/TokenInfo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/TokenKind.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/TokenKind.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simpleops/IsPrime.marv" beforeDir="false" afterPath="$PROJECT_DIR$/simpleops/IsPrime.marv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/simpleops/notes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/simpleops/notes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/JUnaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JUnaryExpression.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,8 +35,20 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "loty2019"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/loty2019/Compilers",
+    "accountId": "477ab739-94ad-493b-9695-4a62c7aedd55"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -45,20 +60,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21 (2)&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/lorenzoorio/workspace/j--/bin&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.github.copilot.settings.ApplicationConfigurable&quot;,
-    &quot;two.files.diff.last.used.file&quot;: &quot;/home/siyer/workspace/j--/out2.txt&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "21 (2)",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/loren/Desktop/Compilers/j--",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "com.github.copilot.settings.ApplicationConfigurable",
+    "two.files.diff.last.used.file": "/home/siyer/workspace/j--/out2.txt"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/bin" />
@@ -188,6 +204,15 @@
       <option name="presentableId" value="Default" />
       <updated>1579641706788</updated>
     </task>
+    <task id="LOCAL-00001" summary="ex1,3,4,5">
+      <option name="closed" value="true" />
+      <created>1727059023710</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1727059023710</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -204,6 +229,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ex1,3,4,5" />
+    <option name="LAST_COMMIT_MESSAGE" value="ex1,3,4,5" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

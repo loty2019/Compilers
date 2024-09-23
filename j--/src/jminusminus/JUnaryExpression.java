@@ -256,7 +256,8 @@ class JUnaryPlusOp extends JUnaryExpression {
      */
     public JExpression analyze(Context context) {
         operand = operand.analyze(context);
-        type = operand.type();
+        operand.type().mustMatchExpected(line(), Type.INT);
+        type = Type.INT;
         return this;
     }
 

@@ -1,25 +1,33 @@
 1. Provide a high-level description (ie, using minimal amount of technical jargon) of each problem
 in no more than 100 words.
 
-Problem 1 (Understanding the JVM): ...
+Problem 1 (Understanding the JVM):
+we had to inegrat a progrma so that the Clemetter can programmatically generate a class for such program,
+in this ca the IsPrime aka the JVM bytecode FOR THE IsPrime program.
+i just followed the slides an broke drown the code isn smaller pices to create instructions for the JVM bytecode.
 
-Problem 2 (Understanding the Marvin Machine): ...
+Problem 2 (Understanding the Marvin Machine):
+Code a is Prime program but tis time for the marvin macchine which uses a 16 bit register with  32 instricions
+i just followed the slides and broke drown the code in smaller pices to create instructions for the Marvin Machine.
 
-Problem 3 (Arithmetic Operators): ...
+Problem 3 (Arithmetic Operators):
+this priblem required the mofification of a lot of files, parser, scanner, tokeninfo and the codegen file.
+small modifications that work togheter to create the add support for divsion remeinder and unariplus
 
-Problem 4 (Conditional Expression): ...
+Problem 4 (Conditional Expression):
+same principle of promel 3 but now we had to add the support for the conditional expression, the codegen file was the one that needed the most modification.
+then is parser, scanner and tokeninfo files.
 
-Problem 5 (Do Statement): ...
+Problem 5 (Do Statement):
+this problem was the same as the previous ones, but now we had to add the support for the do statement.
 
 2. Did you receive help from anyone? List their names, status (classmate, course staff, other), and
 the nature of help received.
 
 Name                   Status           Help Received
-----                   ------           -------------
-
-...                    ...              ...
+Jongsoo Ha             Classmate        we just discusst the approac to problems
 
 3. List any other comments here. Feel free to provide any feedback on how much you learned from
 doing the assignment, and whether you enjoyed doing it.
 
-...
+it was interesting to work with such a big codebase.

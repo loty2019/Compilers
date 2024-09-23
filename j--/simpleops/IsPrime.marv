@@ -12,4 +12,32 @@
 #     input:  r0 = n
 #     output: r13 = 1 if n is prime and 0 otherwise
 
-...
+4    setn     r13 1       # Assume n is prime
+
+5    jeqzn    r0 24       # If n == 0, set r13 = 0 and return
+6    setn     r1 1        # r1 = 1
+7    sub      r2 r0 r1    # r2 = n - 1
+8    jeqzn    r2 24       # If n == 1, set r13 = 0 and return
+9    setn     r1 2        # r1 = 2
+10   sub      r2 r0 r1    # r2 = n - 2
+11   jeqzn    r2 22       # If n == 2, return (n is prime)
+12   setn     r1 2        # r1 = 2 (divisor)
+
+# Loop Start
+13   sub      r2 r0 r1    # r2 = n - r1
+14   jeqzn    r2 22       # If n - r1 == 0, we've checked all divisors
+15   div      r3 r0 r1    # r3 = n // r1
+16   mul      r4 r3 r1    # r4 = (n // r1) * r1
+17   sub      r5 r0 r4    # r5 = n - r4
+18   jeqzn    r5 24       # If r5 == 0, n is divisible by r1 (not prime)
+19   addn     r1 1        # r1 = r1 + 1
+20   jumpn    13          # Jump back to Loop Start
+
+# n is prime
+21   nop                  # Placeholder (not necessary)
+22   jumpr    r12         # Return to caller with r13 = 1
+
+# n is not prime
+23   nop                  # Placeholder (not necessary)
+24   setn     r13 0       # Set r13 = 0 (n is not prime)
+25   jumpr    r12         # Return to caller
