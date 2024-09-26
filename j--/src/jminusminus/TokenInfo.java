@@ -45,6 +45,16 @@ enum TokenKind {
      */
     IF("if"),
 
+    BREAk("break"),
+
+    DOUBLE("double"),
+
+    CASE("case"),
+
+    FOR("for"),
+
+
+
     /**
      * Reserved word, "import".
      */

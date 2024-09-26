@@ -85,6 +85,7 @@ class Scanner {
      */
     public TokenInfo getNextToken() {
         StringBuilder buffer;
+        boolean inComment = false;
         boolean moreWhiteSpace = true;
         while (moreWhiteSpace) {
             while (isWhitespace(ch)) {
@@ -95,6 +96,21 @@ class Scanner {
                 if (ch == '/') {
                     // CharReader maps all new lines to '\n'.
                     while (ch != '\n' && ch != EOFCH) {
+                        nextCh();
+                    }
+                } else if (ch == '*') {
+                    inComment = true;
+                    nextCh();
+                    while (inComment) {
+//                        if (ch ==  '\n' || ch == EOFCH) {
+//                            nextCh();
+//                        }
+                        if (ch == '*') {
+                            nextCh();
+                            if (ch == '/') {
+                                inComment = false;
+                            }
+                        }
                         nextCh();
                     }
                 } else {
