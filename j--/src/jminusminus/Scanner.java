@@ -74,6 +74,15 @@ class Scanner {
         reserved.put(WHILE.image(), WHILE);
         reserved.put(DO.image(), DO);
 
+        reserved.put(BREAk.image(), BREAk);
+        reserved.put(CONTINUE.image(), CONTINUE);
+        reserved.put(FOR.image(), FOR);
+        reserved.put(DOUBLE.image(), DOUBLE);
+        reserved.put(LONG.image(), LONG);
+        reserved.put(SWITCH.image(), SWITCH);
+        reserved.put(CASE.image(), CASE);
+        reserved.put(DEFAULT.image(), DEFAULT);
+
         // Prime the pump.
         nextCh();
     }
@@ -113,6 +122,9 @@ class Scanner {
                         }
                         nextCh();
                     }
+                } else if (ch == '=') {
+                    nextCh();
+                    return new TokenInfo(DIV_ASSIGN, line);
                 } else {
                     return new TokenInfo(DIV, line);
                 }
@@ -161,6 +173,9 @@ class Scanner {
                 if (ch == '-') {
                     nextCh();
                     return new TokenInfo(DEC, line);
+                } else if (ch == '=') {
+                    nextCh();
+                    return new TokenInfo(MINUS_ASSIGN, line);
                 } else {
                     return new TokenInfo(MINUS, line);
                 }
@@ -177,10 +192,20 @@ class Scanner {
                 }
             case '*':
                 nextCh();
-                return new TokenInfo(STAR, line);
+                if (ch == '=') {
+                    nextCh();
+                    return new TokenInfo(STAR_ASSIGN, line);
+                } else {
+                    return new TokenInfo(STAR, line);
+                }
             case '%':
                 nextCh();
-                return new TokenInfo(REM, line);
+                if (ch == '=') {
+                    nextCh();
+                    return new TokenInfo(REM_ASSIGN, line);
+                } else {
+                    return new TokenInfo(REM, line);
+                }
             case '=':
                 nextCh();
                 if (ch == '=') {
@@ -191,6 +216,10 @@ class Scanner {
                 }
             case '>':
                 nextCh();
+                if (ch == '=') {
+                    nextCh();
+                    return new TokenInfo(GE, line);
+                }
                 return new TokenInfo(GT, line);
             case '<':
                 nextCh();
@@ -198,12 +227,25 @@ class Scanner {
                     nextCh();
                     return new TokenInfo(LE, line);
                 } else {
-                    reportScannerError("operator < is not supported in j--");
+                    return new TokenInfo(LT, line);
+                }
+            case '|':
+                nextCh();
+                if (ch == '|') {
+                    nextCh();
+                    return new TokenInfo(LOR, line);
+                } else {
+                    reportScannerError("operator | is not supported in j--");
                     return getNextToken();
                 }
             case '!':
                 nextCh();
-                return new TokenInfo(LNOT, line);
+                if (ch == '=') {
+                    nextCh();
+                    return new TokenInfo(NOT_EQUAL, line);
+                } else {
+                    return new TokenInfo(LNOT, line);
+                }
             case '&':
                 nextCh();
                 if (ch == '&') {

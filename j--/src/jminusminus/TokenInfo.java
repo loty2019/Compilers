@@ -53,7 +53,13 @@ enum TokenKind {
 
     FOR("for"),
 
+    CONTINUE("continue"),
 
+    LONG("long"),
+
+    SWITCH("switch"),
+
+    DEFAULT("default"),
 
     /**
      * Reserved word, "import".
@@ -184,6 +190,46 @@ enum TokenKind {
      * Operator, "-".
      */
     MINUS("-"),
+
+    /**
+     * Operator, "-=".
+     */
+    MINUS_ASSIGN("-="),
+
+    /**
+     * Operator, "*=".
+     */
+    STAR_ASSIGN("*="),
+
+    /**
+     * Operator, "/=".
+     */
+    DIV_ASSIGN("/="),
+
+    /**
+     * Operator, "%=".
+     */
+    REM_ASSIGN("%="),
+
+    /**
+     * Operator, "!=".
+     */
+    NOT_EQUAL("!="),
+
+    /**
+     * Operator, ">=".
+     */
+    GE(">="),
+
+    /**
+     * Operator, "<".
+     */
+    LT("<"),
+
+    /**
+     * Operator, "||".
+     */
+    LOR("||"),
 
     /**
      * Operator, "+".
