@@ -139,7 +139,29 @@ class Scanner {
                 nextCh();
                 return new TokenInfo(COMMA, line);
             case '.':
+                buffer = new StringBuilder();
+                buffer.append(ch);
                 nextCh();
+                if (isDigit(ch)) {
+//                    buffer = new StringBuilder();
+//                    buffer.append('.');
+
+                    // Append digits after the decimal point
+                    buffer.append(digits());
+
+                    // Check exponent
+                    if (ch == 'e' || ch == 'E') {
+                        buffer.append(exponent());
+                    }
+
+                    // Check for d/D
+                    if (ch == 'd' || ch == 'D') {
+                        buffer.append(ch);
+                        nextCh();
+                    }
+
+                    return new TokenInfo(DOUBLE_LITERAL, buffer.toString(), line);
+                }
                 return new TokenInfo(DOT, line);
             case '[':
                 nextCh();
@@ -302,7 +324,6 @@ class Scanner {
                 }
                 return new TokenInfo(STRING_LITERAL, buffer.toString(), line);
             case '0':
-
             case '1':
             case '2':
             case '3':
@@ -313,44 +334,46 @@ class Scanner {
             case '8':
             case '9':
                 buffer = new StringBuilder();
-                boolean hasLeadingZero = (ch == '0');  // Track if the literal starts with zero
-                buffer.append(ch);
-                nextCh();
 
                 // Parse the rest of the digits
                 while (isDigit(ch)) {
-                    buffer.append(ch);
-                    nextCh();
-
+                    buffer.append(digits());
                 }
 
-                // Check if the literal is a long literal
+                // Check if literal
                 if (ch == 'L' || ch == 'l') {
                     buffer.append(ch);
                     nextCh();
-                    return new TokenInfo(LONG, buffer.toString(), line);
+                    return new TokenInfo(LONG_LITERAL, buffer.toString(), line);
                 }
 
-                // Check if it's a double literal (part 1, with decimal point)
-                else if (ch == '.') {
+                // Check if double
+                if (ch == 'd' || ch == 'D') {
+                    buffer.append(ch);
+                    nextCh();
+                    return new TokenInfo(DOUBLE_LITERAL, buffer.toString(), line);
+                }
+
+                // Check for . ch
+                if (ch == '.') {
                     buffer.append(ch);
                     nextCh();
 
                     // Append digits after the decimal point
                     buffer.append(digits());
 
-                    // Check if there's an exponent
+                    // Check exponent
                     if (ch == 'e' || ch == 'E') {
                         buffer.append(exponent());
                     }
 
-                    // Check for double suffix 'd' or 'D'
+                    // Check for d/D
                     if (ch == 'd' || ch == 'D') {
                         buffer.append(ch);
                         nextCh();
                     }
 
-                    return new TokenInfo(DOUBLE, buffer.toString(), line);
+                    return new TokenInfo(DOUBLE_LITERAL, buffer.toString(), line);
                 }
 
                 // Check for an exponent without a decimal (part 2 and 3)
@@ -363,16 +386,10 @@ class Scanner {
                         nextCh();
                     }
 
-                    return new TokenInfo(DOUBLE, buffer.toString(), line);
+                    return new TokenInfo(DOUBLE_LITERAL, buffer.toString(), line);
                 }
 
-                // Handle cases where the number is an int, and strip any leading zeroes
-                if (hasLeadingZero && buffer.length() > 1) {
-                    // If there are leading zeroes in an integer literal, trim them
-                    buffer = new StringBuilder(buffer.toString().replaceFirst("^0+", ""));
-                }
-
-                // Return as an int literal
+                // Return
                 return new TokenInfo(INT_LITERAL, buffer.toString(), line);
             default:
                 if (isIdentifierStart(ch)) {

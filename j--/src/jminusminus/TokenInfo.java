@@ -327,6 +327,9 @@ enum TokenKind {
      */
     INT_LITERAL("<INT_LITERAL>"),
 
+    DOUBLE_LITERAL("<DOUBLE_LITERAL>"),
+
+    LONG_LITERAL("<LONG_LITERAL>"),
     /**
      * String literal.
      */

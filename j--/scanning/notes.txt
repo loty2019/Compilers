@@ -1,23 +1,33 @@
 1. Provide a high-level description (ie, using minimal amount of technical jargon) of each problem
 in no more than 100 words.
 
-Problem 1 (Multiline Comment): ...
+Problem 1 (Multiline Comment):
+Straightfoward exercice, just had to moify the scanner where we check the ch and if we find
+the pattern that rappresnts the beginning of a single line or multiline then anything after
+that shoud be ignored until the patttern is seen again
 
-Problem 2 (Reserved Words): ...
+Problem 2 (Reserved Words):
+this was long but esentially we had to match the token Info with image and then rseserve the
+keyword in the scanner
 
-Problem 3 (Operators): ...
+Problem 3 (Operators):
+this was very similar to the prevous one expect that i needed a litle bit more logic to be
+implemented in the scanner
 
-Problem 4 (Literals): ...
+Problem 4 (Literals):
+this was fun, i got stuck trying to solve the double that starte with a . bit then i relized
+that the . was alread a case so all i had was add more logic to that case not implement a whole
+new one. for the other scannign parenters the logic was kinda the same, read the integers if there
+are any and if you find a character append that to the buffer and then check for more integers,
+return accordingly.
 
 2. Did you receive help from anyone? List their names, status (classmate, course staff, other), and
 the nature of help received.
 
 Name                   Status           Help Received
-----                   ------           -------------
-
-...                    ...              ...
+n/a                     n/a              n/a
 
 3. List any other comments here. Feel free to provide any feedback on how much you learned from
 doing the assignment, and whether you enjoyed doing it.
 
-...
+Had fun!
