@@ -1,0 +1,27 @@
+1. For each problem, provide in more than 100 words, a short, high-level description of the problem;
+your approach to solve it; and any issues you encountered and if/how you managed to solve them.
+
+Problem 1 (Operators): ...
+
+Problem 2 (Long and Double Basic Types): ...
+
+Problem 3 (For Statement): ...
+
+Problem 4 (Break Statement): ...
+
+Problem 5 (Continue Statement): ...
+
+Problem 6 (Switch Statement): ...
+
+2. Did you receive help from anyone? List their names, status (classmate, course staff, other), and
+the nature of help received.
+
+Name                   Status           Help Received
+----                   ------           -------------
+
+...                    ...              ...
+
+3. List any other comments here. Feel free to provide any feedback on how much you learned from
+doing the assignment, and whether you enjoyed doing it.
+
+...
