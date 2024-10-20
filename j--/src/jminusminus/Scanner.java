@@ -74,7 +74,7 @@ class Scanner {
         reserved.put(WHILE.image(), WHILE);
         reserved.put(DO.image(), DO);
 
-        reserved.put(BREAk.image(), BREAk);
+        reserved.put(BREAK.image(), BREAK);
         reserved.put(CONTINUE.image(), CONTINUE);
         reserved.put(FOR.image(), FOR);
         reserved.put(DOUBLE.image(), DOUBLE);

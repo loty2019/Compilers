@@ -1,5 +1,6 @@
 package jminusminus;
 
+import static jminusminus.CLConstants.GOTO;
 /**
  * An AST node for a continue-statement.
  */
@@ -17,7 +18,7 @@ class JContinueStatement extends JStatement {
      * {@inheritDoc}
      */
     public JStatement analyze(Context context) {
-        
+
         return this;
     }
 

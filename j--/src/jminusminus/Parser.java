@@ -352,13 +352,16 @@ class Parser {
         } else if (have(FOR)) {
             mustBe(LPAREN);
             ArrayList<JStatement> init = forInit();
-            JExpression condition = expression();
+            JExpression condition = null;
+            if (!see(SEMI)) {
+                condition = expression();
+            }
             mustBe(SEMI);
             ArrayList<JStatement> update = forUpdate();
             mustBe(RPAREN);
             JStatement body = statement();
             return new JForStatement(line, init, condition, update, body);
-        } else if (have(BREAk)) {
+        } else if (have(BREAK)) {
             mustBe(SEMI);
             return new JBreakStatement(line);
         } else if (have(CONTINUE)) {
@@ -403,8 +406,10 @@ class Parser {
     }
 
     private ArrayList<JStatement> forInit() {
-        ArrayList<JStatement> init = new ArrayList<>();
-        if (!have(SEMI)) {
+        if (have(SEMI)) {
+            return null; // No initialization statements
+        } else {
+            ArrayList<JStatement> init = new ArrayList<>();
             if (seeLocalVariableDeclaration()) {
                 init.add(localVariableDeclarationStatement());
             } else {
@@ -417,20 +422,26 @@ class Parser {
                     init.add(statementExpression());
                 }
             }
+            return init;
         }
-        return init;
     }
 
+
     private ArrayList<JStatement> forUpdate() {
-        ArrayList<JStatement> update = new ArrayList<>();
-        if (!see(RPAREN)) {
+        if (see(RPAREN)) {
+            return null; // No update statements
+        } else {
+            ArrayList<JStatement> update = new ArrayList<>();
             update.add(statementExpression());
             while (have(COMMA)) {
                 update.add(statementExpression());
             }
+            return update;
         }
-        return update;
     }
+
+
+
     /**
      * Parses a formal parameter and returns an AST for it.
      *

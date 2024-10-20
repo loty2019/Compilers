@@ -45,7 +45,7 @@ enum TokenKind {
      */
     IF("if"),
 
-    BREAk("break"),
+    BREAK("break"),
 
     DOUBLE("double"),
 
