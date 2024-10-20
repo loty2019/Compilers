@@ -2,6 +2,8 @@ package jminusminus;
 
 import java.util.ArrayList;
 
+import static jminusminus.CLConstants.GOTO;
+
 /**
  * The AST node for a for-statement.
  */
@@ -40,7 +42,11 @@ class JForStatement extends JStatement {
      * {@inheritDoc}
      */
     public JForStatement analyze(Context context) {
-        // TODO
+        if (init != null) {
+            for (JStatement stmt : init) {
+                stmt.analyze(context);
+            }
+        }
         return this;
     }
 
@@ -48,7 +54,27 @@ class JForStatement extends JStatement {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        String test = output.createLabel();
+        String out = output.createLabel();
+        if (init != null) {
+            for (JStatement stmt : init) {
+                stmt.codegen(output);
+            }
+        }
+        output.addLabel(test);
+        if (condition != null) {
+            condition.codegen(output, out, false);
+        }
+        if (body != null) {
+            body.codegen(output);
+        }
+        if (update != null) {
+            for (JStatement stmt : update) {
+                stmt.codegen(output);
+            }
+        }
+        output.addBranchInstruction(GOTO, test);
+        output.addLabel(out);
     }
 
     /**

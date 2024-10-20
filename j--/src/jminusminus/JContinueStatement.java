@@ -17,7 +17,7 @@ class JContinueStatement extends JStatement {
      * {@inheritDoc}
      */
     public JStatement analyze(Context context) {
-        // TODO
+        
         return this;
     }
 
@@ -25,7 +25,7 @@ class JContinueStatement extends JStatement {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+
     }
 
     /**

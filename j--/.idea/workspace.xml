@@ -4,17 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635c3b74-0e24-42bf-a84e-cbc6a9391ff1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="635c3b74-0e24-42bf-a84e-cbc6a9391ff1" name="Default Changelist" comment="part 3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/j--.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/j--.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/jminusminus/CharReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/CharReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JForStatement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JForStatement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JLogicalOrOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JLogicalOrOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JNotEqualOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JNotEqualOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JPostIncrementOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JPostIncrementOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/JPreDecrementOp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/JPreDecrementOp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/jminusminus/Parser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/Parser.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/jminusminus/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/Scanner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/jminusminus/TokenInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/TokenInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/jminusminus/TokenKind.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/jminusminus/TokenKind.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scanning/notes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scanning/notes.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jminusminus/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/Scanner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jminusminus/TokenInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/TokenInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/JBooleanBinaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JBooleanBinaryExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/JBreakStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JBreakStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/JContinueStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JContinueStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/JForStatement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JForStatement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/JUnaryExpression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/JUnaryExpression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jminusminus/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jminusminus/Parser.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +212,31 @@
       <option name="project" value="LOCAL" />
       <updated>1727059023710</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="part 3">
+      <option name="closed" value="true" />
+      <created>1728573106198</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728573106198</updated>
+    </task>
+    <task id="LOCAL-00003" summary="part 3">
+      <option name="closed" value="true" />
+      <created>1728573117877</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1728573117877</updated>
+    </task>
+    <task id="LOCAL-00004" summary="part 3">
+      <option name="closed" value="true" />
+      <created>1728573124709</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1728573124709</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -226,7 +256,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ex1,3,4,5" />
-    <option name="LAST_COMMIT_MESSAGE" value="ex1,3,4,5" />
+    <MESSAGE value="a2 e4" />
+    <MESSAGE value="part 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="part 3" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
