@@ -1,7 +1,8 @@
 1. For each problem, provide in more than 100 words, a short, high-level description of the problem;
 your approach to solve it; and any issues you encountered and if/how you managed to solve them.
 
-Problem 1 (Operators): ...
+Problem 1 (Operators):
+Ok so... This want bad and all i did
 
 Problem 2 (Long and Double Basic Types): ...
 

@@ -375,6 +375,17 @@ class Parser {
             mustBe(RPAREN);
             mustBe(SEMI);
             return new JDoStatement(line, body, condition);
+        } else if (have(SWITCH)) {
+            JExpression condition = parExpression();
+            mustBe(LCURLY);
+            ArrayList<SwitchStatementGroup> switchBlockStatementGroups = new ArrayList<>();
+
+            while (!see(RCURLY) && !see(EOF)) {
+                switchBlockStatementGroups.add(switchBlockStatementGroup());
+            }
+
+            mustBe(RCURLY);
+            return new JSwitchStatement(line, condition, switchBlockStatementGroups);
         } else {
             // Must be a statementExpression.
             JStatement statement = statementExpression();
@@ -440,7 +451,34 @@ class Parser {
         }
     }
 
+    private JExpression switchLabel() {
+        int line = scanner.token().line();
+        if (have(CASE)) {
+            JExpression expr = expression();
+            mustBe(COLON);
+            return expr;
+        } else if (have(DEFAULT)) {
+            mustBe(COLON);
+            return null;
+        } else {
+            return null;
+        }
+    }
 
+    private SwitchStatementGroup switchBlockStatementGroup() {
+        ArrayList<JExpression> switchLabels = new ArrayList<>();
+        // Parse one or more switchLabels
+        do {
+            switchLabels.add(switchLabel());
+        } while (see(CASE) || see(DEFAULT));
+
+        // Parse zero or more blockStatements until you see a CASE, DEFAULT, or RCURLY
+        ArrayList<JStatement> block = new ArrayList<>();
+        while (!see(CASE) && !see(DEFAULT) && !see(RCURLY) && !see(EOF)) {
+            block.add(blockStatement());
+        }
+        return new SwitchStatementGroup(switchLabels, block);
+    }
 
     /**
      * Parses a formal parameter and returns an AST for it.
