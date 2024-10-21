@@ -2,27 +2,38 @@
 your approach to solve it; and any issues you encountered and if/how you managed to solve them.
 
 Problem 1 (Operators):
-Ok so... This want bad and all i did
+So...I had to update some parsing methods to recognize the operators and map them to the AST nodes. This was
+pretty straightforward! Just modified the right spots in the parser so it can handle these new operators.
+No major issues, just needed to follow the patterns already in place.
 
-Problem 2 (Long and Double Basic Types): ...
+Problem 2 (Long and Double Basic Types):
+For this one, I had to add support for long and double. I tweaked methods basicType(), seeBasicType(), seeReferenceType() and literal() to recognize and parse
+long and double. The only tricky part was ensuring the parser distinguishes these from other basic types like int but it wasn't too bad
+once I got the hang of it.
 
-Problem 3 (For Statement): ...
+Problem 3 (For Statement):
+Adding support for for loops (LOL) involved changing the parser to handle the initialization, condition and update parts of the loop. I added methods forInit()
+forUpdate(). What was challenging was making sure both variable declarations and expressions are worked correctly because on problem 4 I then found out they were not.
 
-Problem 4 (Break Statement): ...
+Problem 4 (Break Statement):
+This was supposed to be simple, just adding support for the break statement, but turned out to take longer then it should. even tho gradescore said problem 3 was correct, it was not.
+I had to go back and fix the for loop to make sure it was working correctly. Once I did that, adding the break statement was easy.
 
-Problem 5 (Continue Statement): ...
+Problem 5 (Continue Statement):
+Same as problem 4 as they are very similar. I did them at the same time.
 
-Problem 6 (Switch Statement): ...
+Problem 6 (Switch Statement):
+I had to add methods to parse the switch block using switchBlockStatementGroup() and switchLabel(). The hard part was handling the flow inside the switch block and making sure the
+parser didn't miss anything, it took a little more time than I wished.
 
 2. Did you receive help from anyone? List their names, status (classmate, course staff, other), and
 the nature of help received.
 
 Name                   Status           Help Received
 ----                   ------           -------------
-
-...                    ...              ...
+n/a                    n/a              n/a
 
 3. List any other comments here. Feel free to provide any feedback on how much you learned from
 doing the assignment, and whether you enjoyed doing it.
 
-...
+More test cases for problem 3 on gradescope. I had to go back and fix problem 3 even tho it said it was correct, only was to find out was from problem 4.
