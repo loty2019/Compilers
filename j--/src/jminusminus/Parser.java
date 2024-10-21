@@ -379,15 +379,12 @@ class Parser {
             JExpression condition = parExpression();
             mustBe(LCURLY);
             ArrayList<SwitchStatementGroup> switchBlockStatementGroups = new ArrayList<>();
-
             while (!see(RCURLY) && !see(EOF)) {
                 switchBlockStatementGroups.add(switchBlockStatementGroup());
             }
-
             mustBe(RCURLY);
             return new JSwitchStatement(line, condition, switchBlockStatementGroups);
         } else {
-            // Must be a statementExpression.
             JStatement statement = statementExpression();
             mustBe(SEMI);
             return statement;
@@ -418,7 +415,7 @@ class Parser {
 
     private ArrayList<JStatement> forInit() {
         if (have(SEMI)) {
-            return null; // No initialization statements
+            return null;
         } else {
             ArrayList<JStatement> init = new ArrayList<>();
             if (seeLocalVariableDeclaration()) {
@@ -440,7 +437,7 @@ class Parser {
 
     private ArrayList<JStatement> forUpdate() {
         if (see(RPAREN)) {
-            return null; // No update statements
+            return null;
         } else {
             ArrayList<JStatement> update = new ArrayList<>();
             update.add(statementExpression());
@@ -452,7 +449,6 @@ class Parser {
     }
 
     private JExpression switchLabel() {
-        int line = scanner.token().line();
         if (have(CASE)) {
             JExpression expr = expression();
             mustBe(COLON);
@@ -467,12 +463,9 @@ class Parser {
 
     private SwitchStatementGroup switchBlockStatementGroup() {
         ArrayList<JExpression> switchLabels = new ArrayList<>();
-        // Parse one or more switchLabels
-        do {
+        while (see(CASE) || see(DEFAULT)) {
             switchLabels.add(switchLabel());
-        } while (see(CASE) || see(DEFAULT));
-
-        // Parse zero or more blockStatements until you see a CASE, DEFAULT, or RCURLY
+        }
         ArrayList<JStatement> block = new ArrayList<>();
         while (!see(CASE) && !see(DEFAULT) && !see(RCURLY) && !see(EOF)) {
             block.add(blockStatement());
@@ -798,11 +791,11 @@ class Parser {
         int line = scanner.token().line();
         boolean more = true;
         JExpression lhs = equalityExpression();
-        if (have(QUESTION)) {  // If a `?` is encountered, it's a conditional expression
-            JExpression trueExpr = expression();  // Parse the true branch after `?`
-            mustBe(COLON);  // Expect a `:` to separate the true and false branches
-            JExpression falseExpr = conditionalAndExpression();  // Parse the false branch
-            return new JConditionalExpression(line, lhs, trueExpr, falseExpr);  // Return a conditional expression node
+        if (have(QUESTION)) {
+            JExpression trueExpr = expression();
+            mustBe(COLON);
+            JExpression falseExpr = conditionalAndExpression();
+            return new JConditionalExpression(line, lhs, trueExpr, falseExpr);
         }
         while (more) {
             if (have(LAND)) {
