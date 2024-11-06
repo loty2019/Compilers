@@ -602,18 +602,22 @@ private JStatement blockStatement():
  *
  * @return an AST for a statement.
  */
+
 private JStatement statement():
 {
     int line = 0;
-    JExpression expr      = null;
-    JStatement statement  = null;
+    JExpression expr = null;
+    JStatement statement = null;
     JStatement consequent = null;
-    JStatement alternate  = null;
-    JStatement body       = null;
+    JStatement alternate = null;
+    JStatement body = null;
+    ArrayList<JStatement> initList = null;
+    ArrayList<JStatement> updateList = null;
 }
 {
-    try {
-        statement = block() |
+    (
+        statement = block()
+        |
         <IF>
         { line = token.beginLine; }
         expr = parExpression()
@@ -623,38 +627,71 @@ private JStatement statement():
             <ELSE>
             alternate = statement()
         ]
-        { statement = new JIfStatement(line, expr, consequent, alternate); } |
+        { statement = new JIfStatement(line, expr, consequent, alternate); }
+        |
         <RETURN>
         { line = token.beginLine; }
         [
             expr = expression()
         ]
         <SEMI>
-        { statement = new JReturnStatement(line, expr); } |
+        { statement = new JReturnStatement(line, expr); }
+        |
         <SEMI>
         {
             line = token.beginLine;
-            statement = new JEmptyStatement( line );
-        } |
+            statement = new JEmptyStatement(line);
+        }
+        |
         <WHILE>
         { line = token.beginLine; }
         expr = parExpression()
         body = statement()
-        { statement = new JWhileStatement(line, expr, body); } |
+        { statement = new JWhileStatement(line, expr, body); }
+        |
         <DO>
         { line = token.beginLine; }
         body = statement()
         <WHILE>
         expr = parExpression()
         <SEMI>
-        { statement = new JDoStatement(line, body, expr); } |
+        { statement = new JDoStatement(line, body, expr); }
+        |
+        <FOR>
+        { line = token.beginLine; }
+        <LPAREN>
+        [
+            initList = forInit()
+        ]
+        <SEMI>
+        [
+            expr = expression()
+        ]
+        <SEMI>
+        [
+            updateList = forUpdate()
+        ]
+        <RPAREN>
+        body = statement()
+        { statement = new JForStatement(line, initList, expr, updateList, body); }
+        |
+        <BREAK>
+        { line = token.beginLine; }
+        <SEMI>
+        { statement = new JBreakStatement(line); }
+        |
+        <CONTINUE>
+        { line = token.beginLine; }
+        <SEMI>
+        { statement = new JContinueStatement(line); }
+        |
+        // Must be a statementExpression.
         statement = statementExpression()
         <SEMI>
-    } catch (ParseException e) {
-        recoverFromError(new int[] { SEMI, EOF }, e);
-    }
+    )
     { return statement; }
 }
+
 
 
 /**
@@ -1697,4 +1734,68 @@ private JExpression literal():
     }
     { return expr; }
 }
+
+private JVariableDeclaration localVariableDeclaration():
+{
+    int line = 0;
+    Type type = null;
+    ArrayList<JVariableDeclarator> vdecls = null;
+}
+{
+    type = type()
+    { line = token.beginLine; }
+    vdecls = variableDeclarators(type)
+    { return new JVariableDeclaration(line, vdecls); }
+}
+
+// ******
+
+private ArrayList<JStatement> forUpdate():
+{
+    ArrayList<JStatement> updateList = new ArrayList<>();
+}
+{
+    updateList = statementExpressionList()
+    { return updateList; }
+}
+
+// *******
+
+private ArrayList<JStatement> forInit():
+{
+    ArrayList<JStatement> initList = new ArrayList<>();
+    JStatement stmt = null;
+}
+{
+    (
+        LOOKAHEAD(statementExpression())
+        // Parse statement expression list
+        initList = statementExpressionList()
+        |
+        // Otherwise, parse local variable declaration
+        stmt = localVariableDeclaration()
+        { initList.add(stmt); }
+    )
+    { return initList; }
+}
+
+// *******
+
+private ArrayList<JStatement> statementExpressionList():
+{
+    ArrayList<JStatement> exprList = new ArrayList<>();
+    JStatement expr = null;
+}
+{
+    expr = statementExpression()
+    { exprList.add(expr); }
+    (
+        <COMMA>
+        expr = statementExpression()
+        { exprList.add(expr); }
+    )*
+    { return exprList; }
+}
+
+// *****
 
