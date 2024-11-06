@@ -1087,21 +1087,50 @@ private JExpression assignmentExpression():
     JExpression lhs = null, rhs = null;
 }
 {
-    try {
-        lhs = conditionalAndExpression()
-        { line = lhs.line(); }
-        [
+    lhs = conditionalExpression()
+    { line = lhs.line(); }
+    [
+        (
             <ASSIGN>
             rhs = assignmentExpression()
             { lhs = new JAssignOp(line, lhs, rhs); } |
             <PLUS_ASSIGN>
             rhs = assignmentExpression()
-            { lhs = new JPlusAssignOp(line, lhs, rhs); }
-        ]
-    } catch (ParseException e) {
-        recoverFromError(new int[] { SEMI, EOF }, e);
-    }
+            { lhs = new JPlusAssignOp(line, lhs, rhs); } |
+            <MINUS_ASSIGN>
+            rhs = assignmentExpression()
+            { lhs = new JMinusAssignOp(line, lhs, rhs); } |
+            <STAR_ASSIGN>
+            rhs = assignmentExpression()
+            { lhs = new JStarAssignOp(line, lhs, rhs); } |
+            <DIV_ASSIGN>
+            rhs = assignmentExpression()
+            { lhs = new JDivAssignOp(line, lhs, rhs); } |
+            <MOD_ASSIGN>
+            rhs = assignmentExpression()
+            { lhs = new JRemAssignOp(line, lhs, rhs); }
+        )
+    ]
     { return lhs; }
+}
+
+
+private JExpression conditionalExpression():
+{
+    JExpression condition = null;
+    JExpression truePart = null;
+    JExpression falsePart = null;
+}
+{
+    condition = conditionalOrExpression()
+    [
+        <QUESTION>
+        truePart = expression()
+        <COLON>
+        falsePart = conditionalExpression()
+        { condition = new JConditionalExpression(condition.line(), condition, truePart, falsePart); }
+    ]
+    { return condition; }
 }
 
 /**
@@ -1113,6 +1142,23 @@ private JExpression assignmentExpression():
  *
  * @return an AST for a conditional-and expression.
  */
+
+ private JExpression conditionalOrExpression():
+ {
+     int line = 0;
+     JExpression lhs = null, rhs = null;
+ }
+ {
+     lhs = conditionalAndExpression()
+     { line = lhs.line(); }
+     (
+         <LOR>
+         rhs = conditionalAndExpression()
+         { lhs = new JLogicalOrOp(line, lhs, rhs); }
+     )*
+     { return lhs; }
+ }
+
 private JExpression conditionalAndExpression():
 {
     int line = 0;
@@ -1148,17 +1194,18 @@ private JExpression equalityExpression():
     JExpression lhs = null, rhs = null;
 }
 {
-    try {
-        lhs = relationalExpression()
-        { line = lhs.line(); }
+    lhs = relationalExpression()
+    { line = lhs.line(); }
+    (
         (
             <EQUAL>
             rhs = relationalExpression()
-            { lhs = new JEqualOp(line, lhs, rhs); }
-        )*
-    } catch (ParseException e) {
-        recoverFromError(new int[] { SEMI, EOF }, e);
-    }
+            { lhs = new JEqualOp(line, lhs, rhs); } |
+            <NOT_EQUAL>
+            rhs = relationalExpression()
+            { lhs = new JNotEqualOp(line, lhs, rhs); }
+        )
+    )*
     { return lhs; }
 }
 
@@ -1179,22 +1226,27 @@ private JExpression relationalExpression():
     Type type = null;
 }
 {
-    try {
-        lhs = additiveExpression() { line = lhs.line(); }
-        [
+    lhs = additiveExpression()
+    { line = lhs.line(); }
+    [
+        (
             <GT>
             rhs = additiveExpression()
             { lhs = new JGreaterThanOp(line, lhs, rhs); } |
+            <GE>
+            rhs = additiveExpression()
+            { lhs = new JGreaterEqualOp(line, lhs, rhs); } |
+            <LT>
+            rhs = additiveExpression()
+            { lhs = new JLessThanOp(line, lhs, rhs); } |
             <LE>
             rhs = additiveExpression()
             { lhs = new JLessEqualOp(line, lhs, rhs); } |
             <INSTANCEOF>
             type = referenceType()
             { lhs = new JInstanceOfOp(line, lhs, type); }
-        ]
-    } catch (ParseException e) {
-        recoverFromError(new int[] { SEMI, EOF }, e);
-    }
+        )
+    ]
     { return lhs; }
 }
 
@@ -1245,17 +1297,21 @@ private JExpression multiplicativeExpression():
     JExpression lhs = null, rhs = null;
 }
 {
-    try {
-        lhs = unaryExpression()
-        { line = lhs.line(); }
+    lhs = unaryExpression()
+    { line = lhs.line(); }
+    (
         (
             <STAR>
             rhs = unaryExpression()
-            { lhs = new JMultiplyOp(line, lhs, rhs); }
-        )*
-    } catch (ParseException e) {
-        recoverFromError(new int[] { SEMI, EOF }, e);
-    }
+            { lhs = new JMultiplyOp(line, lhs, rhs); } |
+            <DIV>
+            rhs = unaryExpression()
+            { lhs = new JDivideOp(line, lhs, rhs); } |
+            <MOD>
+            rhs = unaryExpression()
+            { lhs = new JRemainderOp(line, lhs, rhs); }
+        )
+    )*
     { return lhs; }
 }
 
@@ -1281,6 +1337,14 @@ private JExpression unaryExpression():
         { line = token.beginLine; }
         unaryExpr = unaryExpression()
         { expr = new JPreIncrementOp(line, unaryExpr); } |
+        <DEC>
+        { line = token.beginLine; }
+        unaryExpr = unaryExpression()
+        { expr = new JPreDecrementOp(line, unaryExpr); } |
+        <PLUS>
+        { line = token.beginLine; }
+        unaryExpr = unaryExpression()
+        { expr = new JUnaryPlusOp(line, unaryExpr); } |
         <MINUS>
         { line = token.beginLine; }
         unaryExpr = unaryExpression()
@@ -1359,6 +1423,8 @@ private JExpression postfixExpression():
             primaryExpr = selector(primaryExpr)
         )*
         (
+            <INC>
+            { primaryExpr = new JPostIncrementOp(line, primaryExpr); } |
             <DEC>
             { primaryExpr = new JPostDecrementOp(line, primaryExpr); }
         )*
