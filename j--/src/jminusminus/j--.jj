@@ -613,6 +613,8 @@ private JStatement statement():
     JStatement body = null;
     ArrayList<JStatement> initList = null;
     ArrayList<JStatement> updateList = null;
+    ArrayList<SwitchStatementGroup> switchBlockGroups = null;
+    SwitchStatementGroup switchGroup = null;
 }
 {
     (
@@ -685,13 +687,28 @@ private JStatement statement():
         <SEMI>
         { statement = new JContinueStatement(line); }
         |
+        // Switch statement
+        <SWITCH>
+        { line = token.beginLine; }
+        expr = parExpression()
+        <LCURLY>
+        {
+            switchBlockGroups = new ArrayList<>();
+        }
+        (
+            LOOKAHEAD(<CASE> | <DEFAULT_TOKEN>)
+            switchGroup = switchBlockStatementGroup()
+            { switchBlockGroups.add(switchGroup); }
+        )*
+        <RCURLY>
+        { statement = new JSwitchStatement(line, expr, switchBlockGroups); }
+        |
         // Must be a statementExpression.
         statement = statementExpression()
         <SEMI>
     )
     { return statement; }
 }
-
 
 
 /**
@@ -1799,3 +1816,70 @@ private ArrayList<JStatement> statementExpressionList():
 
 // *****
 
+private SwitchStatementGroup switchBlockStatementGroup():
+{
+    ArrayList<JExpression> labels = new ArrayList<>();
+    ArrayList<JStatement> statements = new ArrayList<>();
+    JExpression label = null;
+    JStatement statement = null;
+}
+{
+    // Parse at least one switchLabel
+    label = switchLabel()
+    { labels.add(label); }
+
+    // Parse zero or more switchLabels
+    (
+        LOOKAHEAD(<CASE> | <DEFAULT_TOKEN>)
+        label = switchLabel()
+        { labels.add(label); }
+    )*
+
+    // Parse zero or more blockStatements
+    (
+        statement = blockStatement()
+        { statements.add(statement); }
+    )*
+
+    { return new SwitchStatementGroup(labels, statements); }
+}
+
+// ****
+
+private JExpression switchLabel():
+{
+    int line = 0;
+    JExpression expr = null;
+}
+{
+    try {
+        (
+            (
+                <CASE>
+                { line = token.beginLine; }
+                expr = constantExpression()
+                <COLON>
+            ) |
+            (
+                <DEFAULT_TOKEN>
+                { line = token.beginLine; }
+                <COLON>
+                { expr = null; } // Indicate default label
+            )
+        )
+    } catch (ParseException e) {
+        recoverFromError(new int[] { SEMI, EOF }, e);
+    }
+    { return expr; }
+}
+
+// *****
+
+private JExpression constantExpression():
+{
+    JExpression expr = null;
+}
+{
+    expr = expression()
+    { return expr; }
+}
