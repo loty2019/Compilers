@@ -138,6 +138,15 @@ TOKEN: {
 | <TRUE: "true">
 | <VOID: "void">
 | <WHILE: "while">
+| <BREAK: "break">
+| <CASE: "case">
+| <CONTINUE: "continue">
+| <DEFAULT_TOKEN: "default">
+| <DO: "do">
+| <DOUBLE: "double">
+| <FOR: "for">
+| <LONG: "long">
+| <SWITCH: "switch">
 }
 
 // Separators
@@ -167,6 +176,18 @@ TOKEN: {
 | <PLUS: "+">
 | <PLUS_ASSIGN: "+=">
 | <STAR: "*">
+| <DIV: "/">
+| <MOD: "%">
+| <QUESTION: "?">
+| <LT: "<">
+| <LOR: "||">
+| <MINUS_ASSIGN: "-=">
+| <STAR_ASSIGN: "*=">
+| <DIV_ASSIGN: "/=">
+| <COLON: ":">
+| <GE: ">=">
+| <MOD_ASSIGN: "%=">
+| <NOT_EQUAL: "!=">
 }
 
 // Identifiers
@@ -179,10 +200,20 @@ TOKEN: {
 // Literals
 TOKEN: {
   <INT_LITERAL: <DIGITS>>
+| <LONG_LITERAL: <DIGITS> ( "l" | "L" )>
 | <CHAR_LITERAL: "'" ( <ESC> | ~[ "'", "\\" ] ) "'">
 | <STRING_LITERAL: "\"" ( <ESC> | ~[ "\"", "\\" ] )* "\"">
 | <#DIGITS: <DIGIT> ( <DIGIT> )* >
 | <#ESC: "\\" [ "n", "t", "b", "r", "f", "\\", "'", "\"" ]>
+| <DOUBLE_LITERAL:
+        ( <DIGITS> "." ( <DIGITS> )* ( <EXPONENT> )? ( <SUFFIX> )?
+        | "." <DIGITS> ( <EXPONENT> )? ( <SUFFIX> )?
+        | <DIGITS> <EXPONENT> ( <SUFFIX> )?
+        |  <DIGITS> ( <SUFFIX> )
+        )
+  >
+    | <#EXPONENT: ( "e" | "E" ) ( "+" | "-" )? <DIGITS>>
+    | <#SUFFIX: "d" | "D" >
 }
 
 // For anything else, we return an ERROR token. Without this definition the TokenManager will throw

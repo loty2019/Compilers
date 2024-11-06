@@ -71,65 +71,115 @@ public interface JavaCCParserConstants {
   /** RegularExpression Id. */
   int WHILE = 35;
   /** RegularExpression Id. */
-  int COMMA = 36;
+  int BREAK = 36;
   /** RegularExpression Id. */
-  int DOT = 37;
+  int CASE = 37;
   /** RegularExpression Id. */
-  int LBRACK = 38;
+  int CONTINUE = 38;
   /** RegularExpression Id. */
-  int LCURLY = 39;
+  int DEFAULT_TOKEN = 39;
   /** RegularExpression Id. */
-  int LPAREN = 40;
+  int DO = 40;
   /** RegularExpression Id. */
-  int RPAREN = 41;
+  int DOUBLE = 41;
   /** RegularExpression Id. */
-  int RBRACK = 42;
+  int FOR = 42;
   /** RegularExpression Id. */
-  int RCURLY = 43;
+  int LONG = 43;
   /** RegularExpression Id. */
-  int SEMI = 44;
+  int SWITCH = 44;
   /** RegularExpression Id. */
-  int ASSIGN = 45;
+  int COMMA = 45;
   /** RegularExpression Id. */
-  int DEC = 46;
+  int DOT = 46;
   /** RegularExpression Id. */
-  int EQUAL = 47;
+  int LBRACK = 47;
   /** RegularExpression Id. */
-  int GT = 48;
+  int LCURLY = 48;
   /** RegularExpression Id. */
-  int INC = 49;
+  int LPAREN = 49;
   /** RegularExpression Id. */
-  int LAND = 50;
+  int RPAREN = 50;
   /** RegularExpression Id. */
-  int LE = 51;
+  int RBRACK = 51;
   /** RegularExpression Id. */
-  int LNOT = 52;
+  int RCURLY = 52;
   /** RegularExpression Id. */
-  int MINUS = 53;
+  int SEMI = 53;
   /** RegularExpression Id. */
-  int PLUS = 54;
+  int ASSIGN = 54;
   /** RegularExpression Id. */
-  int PLUS_ASSIGN = 55;
+  int DEC = 55;
   /** RegularExpression Id. */
-  int STAR = 56;
+  int EQUAL = 56;
   /** RegularExpression Id. */
-  int IDENTIFIER = 57;
+  int GT = 57;
   /** RegularExpression Id. */
-  int LETTER = 58;
+  int INC = 58;
   /** RegularExpression Id. */
-  int DIGIT = 59;
+  int LAND = 59;
   /** RegularExpression Id. */
-  int INT_LITERAL = 60;
+  int LE = 60;
   /** RegularExpression Id. */
-  int CHAR_LITERAL = 61;
+  int LNOT = 61;
   /** RegularExpression Id. */
-  int STRING_LITERAL = 62;
+  int MINUS = 62;
   /** RegularExpression Id. */
-  int DIGITS = 63;
+  int PLUS = 63;
   /** RegularExpression Id. */
-  int ESC = 64;
+  int PLUS_ASSIGN = 64;
   /** RegularExpression Id. */
-  int ERROR = 65;
+  int STAR = 65;
+  /** RegularExpression Id. */
+  int DIV = 66;
+  /** RegularExpression Id. */
+  int MOD = 67;
+  /** RegularExpression Id. */
+  int QUESTION = 68;
+  /** RegularExpression Id. */
+  int LT = 69;
+  /** RegularExpression Id. */
+  int LOR = 70;
+  /** RegularExpression Id. */
+  int MINUS_ASSIGN = 71;
+  /** RegularExpression Id. */
+  int STAR_ASSIGN = 72;
+  /** RegularExpression Id. */
+  int DIV_ASSIGN = 73;
+  /** RegularExpression Id. */
+  int COLON = 74;
+  /** RegularExpression Id. */
+  int GE = 75;
+  /** RegularExpression Id. */
+  int MOD_ASSIGN = 76;
+  /** RegularExpression Id. */
+  int NOT_EQUAL = 77;
+  /** RegularExpression Id. */
+  int IDENTIFIER = 78;
+  /** RegularExpression Id. */
+  int LETTER = 79;
+  /** RegularExpression Id. */
+  int DIGIT = 80;
+  /** RegularExpression Id. */
+  int INT_LITERAL = 81;
+  /** RegularExpression Id. */
+  int LONG_LITERAL = 82;
+  /** RegularExpression Id. */
+  int CHAR_LITERAL = 83;
+  /** RegularExpression Id. */
+  int STRING_LITERAL = 84;
+  /** RegularExpression Id. */
+  int DIGITS = 85;
+  /** RegularExpression Id. */
+  int ESC = 86;
+  /** RegularExpression Id. */
+  int DOUBLE_LITERAL = 87;
+  /** RegularExpression Id. */
+  int EXPONENT = 88;
+  /** RegularExpression Id. */
+  int SUFFIX = 89;
+  /** RegularExpression Id. */
+  int ERROR = 90;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -176,6 +226,15 @@ public interface JavaCCParserConstants {
     "\"true\"",
     "\"void\"",
     "\"while\"",
+    "\"break\"",
+    "\"case\"",
+    "\"continue\"",
+    "\"default\"",
+    "\"do\"",
+    "\"double\"",
+    "\"for\"",
+    "\"long\"",
+    "\"switch\"",
     "\",\"",
     "\".\"",
     "\"[\"",
@@ -197,14 +256,30 @@ public interface JavaCCParserConstants {
     "\"+\"",
     "\"+=\"",
     "\"*\"",
+    "\"/\"",
+    "\"%\"",
+    "\"?\"",
+    "\"<\"",
+    "\"||\"",
+    "\"-=\"",
+    "\"*=\"",
+    "\"/=\"",
+    "\":\"",
+    "\">=\"",
+    "\"%=\"",
+    "\"!=\"",
     "<IDENTIFIER>",
     "<LETTER>",
     "<DIGIT>",
     "<INT_LITERAL>",
+    "<LONG_LITERAL>",
     "<CHAR_LITERAL>",
     "<STRING_LITERAL>",
     "<DIGITS>",
     "<ESC>",
+    "<DOUBLE_LITERAL>",
+    "<EXPONENT>",
+    "<SUFFIX>",
     "<ERROR>",
   };
 
