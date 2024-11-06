@@ -111,6 +111,7 @@ SKIP: { <END_MULTI_LINE_COMMENT: "*/">: DEFAULT }
 <IN_MULTI_LINE_COMMENT>
 SKIP: { <MULTI_LINE_COMMENT: ~[]> }
 
+
 // Reserved words
 TOKEN: {
   <ABSTRACT: "abstract">
