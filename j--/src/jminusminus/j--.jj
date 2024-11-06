@@ -618,8 +618,6 @@ private JStatement statement():
         { line = token.beginLine; }
         expr = parExpression()
         consequent = statement()
-        // Even without the lookahead below, which is added to suppress JavaCC warnings, dangling
-        // if-else problem is resolved by binding the alternate to the closest consequent.
         [
             LOOKAHEAD(<ELSE>)
             <ELSE>
@@ -643,7 +641,13 @@ private JStatement statement():
         expr = parExpression()
         body = statement()
         { statement = new JWhileStatement(line, expr, body); } |
-        // Must be a statementExpression.
+        <DO>
+        { line = token.beginLine; }
+        body = statement()
+        <WHILE>
+        expr = parExpression()
+        <SEMI>
+        { statement = new JDoStatement(line, body, expr); } |
         statement = statementExpression()
         <SEMI>
     } catch (ParseException e) {
@@ -651,6 +655,7 @@ private JStatement statement():
     }
     { return statement; }
 }
+
 
 /**
  * Parses and returns a list of formal parameters.
@@ -963,7 +968,11 @@ private Type basicType():
         <CHAR>
         { type = Type.CHAR; } |
         <INT>
-        { type = Type.INT; }
+        { type = Type.INT; } |
+        <LONG>
+        { type = Type.LONG; } |
+        <DOUBLE>
+        { type = Type.DOUBLE; }
     } catch (ParseException e) {
         recoverFromError(new int[] { SEMI, EOF }, e);
     }
@@ -1670,17 +1679,22 @@ private JExpression literal():
         { expr = new JLiteralChar(token.beginLine, token.image); } |
         <FALSE>
         { expr = new JLiteralBoolean(token.beginLine, token.image); } |
-        <INT_LITERAL>
-        { expr = new JLiteralInt(token.beginLine, token.image); } |
+        <TRUE>
+        { expr = new JLiteralBoolean(token.beginLine, token.image); } |
         <NULL>
         { expr = new JLiteralNull(token.beginLine); } |
+        <INT_LITERAL>
+        { expr = new JLiteralInt(token.beginLine, token.image); } |
+        <LONG_LITERAL>
+        { expr = new JLiteralLong(token.beginLine, token.image); } |
+        <DOUBLE_LITERAL>
+        { expr = new JLiteralDouble(token.beginLine, token.image); } |
         <STRING_LITERAL>
-        { expr = new JLiteralString(token.beginLine, token.image); } |
-        <TRUE>
-        { expr = new JLiteralBoolean(token.beginLine, token.image); }
+        { expr = new JLiteralString(token.beginLine, token.image); }
     } catch (ParseException e) {
         expr = new JWildExpression(token.beginLine);
         recoverFromError(new int[] { SEMI, EOF }, e);
     }
     { return expr; }
 }
+
