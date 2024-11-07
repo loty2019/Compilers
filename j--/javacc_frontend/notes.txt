@@ -1,39 +1,38 @@
 1. For each problem, provide in no more than 100 words, a short, high-level description of the problem;
 your approach to solve it; and any issues you encountered and if/how you managed to solve them.
 
-Problem 1 (Multiline Comment): ...
+Problem 1 (Multiline Comment): I needed to support multi-line comments (/* ... */) in the lexer so they would be properly ignored during parsing. Using the existing single-line comment rules as a model, I added new rules to detect the start (/*) and end (*/) of multi-line comments. One challenge was ensuring that all characters between /* and */, including newlines and asterisks, were correctly skipped. I carefully defined SKIP rules to match only the intended comment patterns.
 
-Problem 2 (Reserved Words): ...
+Problem 2 (Reserved Words): I added new reserved words like break, case, continue, default, do, double, for, long, and switch to the language. I updated the TOKEN definitions in the lexer to include these words along with the existing ones. The tricky part was ensuring these new reserved words didn't conflict with identifiers.
 
-Problem 3 (Operators): ...
+Problem 3 (Operators): To support additional operators such as /, %, ?, :, -=, *=, /=, %=, !=, >=, <, and ||, I extended the TOKEN definitions in the lexer to include them. I also modified the parser's grammar rules to handle these operators in expressions. The main issue was maintaining the correct operator precedence and associativity.
 
-Problem 4 (Literals): ...
+Problem 4 (Literals): I added support for long and double literals. I defined regular expressions for INT_LITERAL, LONG_LITERAL, and DOUBLE_LITERAL in the lexer, handling different formats and suffixes like L for longs and D for doubles. Parsing doubles was a bit complex due to various formats (e.g., 123.45, .678, 1e10). I wrote separate rules for each format as specified. In the parser, I created AST nodes like JLiteralLong and JLiteralDouble to represent these literals.
 
-Problem 5 (Operators): ...
+Problem 5 (Operators): I added support for compound assignment operators such as -=, *=, /=, and %=. In the lexer, I included these operators in the TOKEN definitions. In the parser, I updated the assignmentExpression() method to handle them, creating AST nodes like JMinusAssignOp, JStarAssignOp, JDivAssignOp, and JRemAssignOp. An issue I faced was ensuring that these operators didn't interfere with the parsing of other tokens.
 
-Problem 6 (Long and Double Basic Types): ...
+Problem 6 (Long and Double Basic Types): To support long and double as basic types, I modified the basicType() method in the parser to recognize them. I also updated the literal() method to handle long and double literals, creating AST nodes like JLiteralLong and JLiteralDouble. Ensuring that variable declarations and expressions involving these types were parsed correctly was important.
 
-Problem 7 (Conditional Expression): ...
+Problem 7 (Conditional Expression): I added support for the ternary conditional operator (?:). I defined a new method conditionalExpression() in the parser to parse expressions like condition ? expr1 : expr2, returning a JConditionalExpression AST node. I had to modify the assignmentExpression() method to call conditionalExpression() instead. A challenge was placing the conditional expression at the correct precedence level in the grammar.
 
-Problem 8 (Do Statement): ...
+Problem 8 (Do Statement): To support the do-while loop construct, I modified the statement() method to parse the do keyword followed by a statement, the while keyword with a parenthesized expression, and a semicolon. I used JDoStatement as the AST representation. An issue I encountered was ensuring the loop body and condition were parsed correctly, especially when dealing with nested statements.
 
-Problem 9 (For Statement): ...
+Problem 9 (For Statement): I added support for for loops by modifying the statement() method and creating helper methods forInit() and forUpdate(). These methods parse the initialization and update parts of the loop, which can include variable declarations or statement expressions. I used JForStatement as the AST representation for the for loop. Handling the optional components and different forms of for loops was a bit challenging. I used LOOKAHEAD in the parser to distinguish between variable declarations and statement expressions.
 
-Problem 10 (Break Statement): ...
+Problem 10 (Break Statement): To implement the break statement, I modified the statement() method to parse the break keyword followed by a semicolon, creating a JBreakStatement AST node. I needed to ensure that break was used only within loops or switch statements. During semantic analysis, I added checks to report errors if break was used outside of valid contexts.
 
-Problem 11 (Continue Statement): ...
+Problem 11 (Continue Statement): Similar to break, I added support for the continue statement. I updated the statement() method to parse continue followed by a semicolon, creating a JContinueStatement AST node. To ensure that continue was used only inside loops, I tracked loop contexts in the parser and performed checks during semantic analysis.
 
-Problem 12 (Switch Statement): ...
+Problem 12 (Switch Statement):  needed to implement the switch statement with case and default labels. I added a switchBlockStatementGroup() method to parse groups of switch labels and associated statements. The switchLabel() method parses individual case or default labels, returning an expression for case and null for default. In the statement() method, I added logic to parse the switch statement, creating a JSwitchStatement AST node. One issue was ensuring that multiple case labels and fall-through behavior were handled correctly. I made sure to parse zero or more switchLabels and zero or more blockStatements after each label.
 
 2. Did you receive help from anyone? List their names, status (classmate, course staff, other), and
 the nature of help received.
 
 Name                   Status           Help Received
 ----                   ------           -------------
-
-...                    ...              ...
+n/a                    n/a              n/a
 
 3. List any other comments here. Feel free to provide any feedback on how much you learned from
 doing the assignment, and whether you enjoyed doing it.
 
-...
+very longggggggg
