@@ -1,6 +1,6 @@
 package jminusminus;
 
-import static jminusminus.CLConstants.IADD;
+import static jminusminus.CLConstants.*;
 
 /**
  * This abstract base class is the AST node for an assignment operation.
@@ -48,7 +48,6 @@ class JAssignOp extends JAssignment {
             if (lhs instanceof JVariable) {
                 Defn defn = ((JVariable) lhs).iDefn();
                 if (defn != null) {
-                    // Local variable; consider it to be initialized now.
                     ((LocalVariableDefn) defn).initialize();
                 }
             }
@@ -89,18 +88,21 @@ class JPlusAssignOp extends JAssignment {
      */
     public JExpression analyze(Context context) {
         if (!(lhs instanceof JLhs)) {
-            JAST.compilationUnit.reportSemanticError(line(), "illegal lhs for assignment");
             return this;
-        } else {
-            lhs = ((JLhs) lhs).analyzeLhs(context);
         }
+        lhs = ((JLhs) lhs).analyzeLhs(context);
         rhs = rhs.analyze(context);
-        if (lhs.type().equals(Type.STRING)) {
+
+        if (lhs.type() == Type.STRING) {
             rhs = (new JStringConcatenationOp(line, lhs, rhs)).analyze(context);
             type = Type.STRING;
+        } else if (lhs.type() == Type.INT && rhs.type() == Type.INT) {
+            type = Type.INT;
+        } else if (lhs.type() == Type.LONG && rhs.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (lhs.type() == Type.DOUBLE && rhs.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
         } else {
-            lhs.type().mustMatchExpected(line(), Type.INT);
-            rhs.type().mustMatchExpected(line(), Type.INT);
             type = Type.INT;
         }
         return this;
@@ -116,7 +118,13 @@ class JPlusAssignOp extends JAssignment {
         } else {
             ((JLhs) lhs).codegenLoadLhsRvalue(output);
             rhs.codegen(output);
-            output.addNoArgInstruction(IADD);
+            if (type == Type.INT) {
+                output.addNoArgInstruction(IADD);
+            } else if (type == Type.LONG) {
+                output.addNoArgInstruction(LADD);
+            } else if (type == Type.DOUBLE) {
+                output.addNoArgInstruction(DADD);
+            }
         }
         if (!isStatementExpression) {
             ((JLhs) lhs).codegenDuplicateRvalue(output);
@@ -144,7 +152,24 @@ class JMinusAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public JExpression analyze(Context context) {
-        // TODO
+        if (!(lhs instanceof JLhs)) {
+            return this;
+        }
+        lhs = ((JLhs) lhs).analyzeLhs(context);
+        rhs = rhs.analyze(context);
+
+        if (lhs.type() == Type.STRING) {
+            rhs = (new JStringConcatenationOp(line, lhs, rhs)).analyze(context);
+            type = Type.STRING;
+        } else if (lhs.type() == Type.INT && rhs.type() == Type.INT) {
+            type = Type.INT;
+        } else if (lhs.type() == Type.LONG && rhs.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (lhs.type() == Type.DOUBLE && rhs.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
+        } else {
+            type = Type.INT;
+        }
         return this;
     }
 
@@ -152,7 +177,20 @@ class JMinusAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        ((JLhs) lhs).codegenLoadLhsLvalue(output);
+        ((JLhs) lhs).codegenLoadLhsRvalue(output);
+        rhs.codegen(output);
+        if (type == Type.INT) {
+            output.addNoArgInstruction(ISUB);
+        } else if (type == Type.LONG) {
+            output.addNoArgInstruction(LSUB);
+        } else if (type == Type.DOUBLE) {
+            output.addNoArgInstruction(DSUB);
+        }
+        if (!isStatementExpression) {
+            ((JLhs) lhs).codegenDuplicateRvalue(output);
+        }
+        ((JLhs) lhs).codegenStore(output);
     }
 }
 
@@ -175,7 +213,24 @@ class JStarAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public JExpression analyze(Context context) {
-        // TODO
+        if (!(lhs instanceof JLhs)) {
+            return this;
+        }
+        lhs = ((JLhs) lhs).analyzeLhs(context);
+        rhs = rhs.analyze(context);
+
+        if (lhs.type() == Type.STRING) {
+            rhs = (new JStringConcatenationOp(line, lhs, rhs)).analyze(context);
+            type = Type.STRING;
+        } else if (lhs.type() == Type.INT && rhs.type() == Type.INT) {
+            type = Type.INT;
+        } else if (lhs.type() == Type.LONG && rhs.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (lhs.type() == Type.DOUBLE && rhs.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
+        } else {
+            type = Type.INT;
+        }
         return this;
     }
 
@@ -183,7 +238,20 @@ class JStarAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        ((JLhs) lhs).codegenLoadLhsLvalue(output);
+        ((JLhs) lhs).codegenLoadLhsRvalue(output);
+        rhs.codegen(output);
+        if (type == Type.INT) {
+            output.addNoArgInstruction(IMUL);
+        } else if (type == Type.LONG) {
+            output.addNoArgInstruction(LMUL);
+        } else if (type == Type.DOUBLE) {
+            output.addNoArgInstruction(DMUL);
+        }
+        if (!isStatementExpression) {
+            ((JLhs) lhs).codegenDuplicateRvalue(output);
+        }
+        ((JLhs) lhs).codegenStore(output);
     }
 }
 
@@ -206,7 +274,24 @@ class JDivAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public JExpression analyze(Context context) {
-        // TODO
+        if (!(lhs instanceof JLhs)) {
+            return this;
+        }
+        lhs = ((JLhs) lhs).analyzeLhs(context);
+        rhs = rhs.analyze(context);
+
+        if (lhs.type() == Type.STRING) {
+            rhs = (new JStringConcatenationOp(line, lhs, rhs)).analyze(context);
+            type = Type.STRING;
+        } else if (lhs.type() == Type.INT && rhs.type() == Type.INT) {
+            type = Type.INT;
+        } else if (lhs.type() == Type.LONG && rhs.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (lhs.type() == Type.DOUBLE && rhs.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
+        } else {
+            type = Type.INT;
+        }
         return this;
     }
 
@@ -214,7 +299,20 @@ class JDivAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        ((JLhs) lhs).codegenLoadLhsLvalue(output);
+        ((JLhs) lhs).codegenLoadLhsRvalue(output);
+        rhs.codegen(output);
+        if (type == Type.INT) {
+            output.addNoArgInstruction(IDIV);
+        } else if (type == Type.LONG) {
+            output.addNoArgInstruction(LDIV);
+        } else if (type == Type.DOUBLE) {
+            output.addNoArgInstruction(DDIV);
+        }
+        if (!isStatementExpression) {
+            ((JLhs) lhs).codegenDuplicateRvalue(output);
+        }
+        ((JLhs) lhs).codegenStore(output);
     }
 }
 
@@ -237,7 +335,24 @@ class JRemAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public JExpression analyze(Context context) {
-        // TODO
+        if (!(lhs instanceof JLhs)) {
+            return this;
+        }
+        lhs = ((JLhs) lhs).analyzeLhs(context);
+        rhs = rhs.analyze(context);
+
+        if (lhs.type() == Type.STRING) {
+            rhs = (new JStringConcatenationOp(line, lhs, rhs)).analyze(context);
+            type = Type.STRING;
+        } else if (lhs.type() == Type.INT && rhs.type() == Type.INT) {
+            type = Type.INT;
+        } else if (lhs.type() == Type.LONG && rhs.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (lhs.type() == Type.DOUBLE && rhs.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
+        } else {
+            type = Type.INT;
+        }
         return this;
     }
 
@@ -245,6 +360,19 @@ class JRemAssignOp extends JAssignment {
      * {@inheritDoc}
      */
     public void codegen(CLEmitter output) {
-        // TODO
+        ((JLhs) lhs).codegenLoadLhsLvalue(output);
+        ((JLhs) lhs).codegenLoadLhsRvalue(output);
+        rhs.codegen(output);
+        if (type == Type.INT) {
+            output.addNoArgInstruction(IREM);
+        } else if (type == Type.LONG) {
+            output.addNoArgInstruction(LREM);
+        } else if (type == Type.DOUBLE) {
+            output.addNoArgInstruction(DREM);
+        }
+        if (!isStatementExpression) {
+            ((JLhs) lhs).codegenDuplicateRvalue(output);
+        }
+        ((JLhs) lhs).codegenStore(output);
     }
 }

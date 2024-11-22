@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="635c3b74-0e24-42bf-a84e-cbc6a9391ff1" name="Default Changelist" comment="part 3" />
+    <list default="true" id="635c3b74-0e24-42bf-a84e-cbc6a9391ff1" name="Default Changelist" comment="problem 2-3 ass 4" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,12 +26,12 @@
     &quot;assignee&quot;: &quot;loty2019&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/loty2019/Compilers&quot;,
-    &quot;accountId&quot;: &quot;477ab739-94ad-493b-9695-4a62c7aedd55&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/loty2019/Compilers.git",
+    "accountId": "a2251eb8-f9db-4d20-aa55-68c55b00f672"
   }
-}</component>
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -219,7 +219,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728573124709</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="part 3">
+      <option name="closed" value="true" />
+      <created>1730914028851</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730914028851</updated>
+    </task>
+    <task id="LOCAL-00006" summary="problem 1 ass 4">
+      <option name="closed" value="true" />
+      <created>1730914241531</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730914241531</updated>
+    </task>
+    <task id="LOCAL-00007" summary="problem 2-3 ass 4">
+      <option name="closed" value="true" />
+      <created>1730915314856</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730915314856</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -240,8 +264,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="ex1,3,4,5" />
     <MESSAGE value="a2 e4" />
+    <MESSAGE value="a4 First commit" />
     <MESSAGE value="part 3" />
-    <option name="LAST_COMMIT_MESSAGE" value="part 3" />
+    <MESSAGE value="problem 1 ass 4" />
+    <MESSAGE value="problem 2-3 ass 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="problem 2-3 ass 4" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

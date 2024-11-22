@@ -1,11 +1,7 @@
 package jminusminus;
 
-import static jminusminus.CLConstants.GOTO;
-import static jminusminus.CLConstants.IADD;
-import static jminusminus.CLConstants.ICONST_0;
-import static jminusminus.CLConstants.ICONST_1;
-import static jminusminus.CLConstants.INEG;
-import static jminusminus.CLConstants.ISUB;
+import static jminusminus.CLConstants.*;
+import static jminusminus.CLConstants.DNEG;
 
 /**
  * This abstract base class is the AST node for a unary expression --- an expression with a single operand.
@@ -113,8 +109,15 @@ class JNegateOp extends JUnaryExpression {
      */
     public JExpression analyze(Context context) {
         operand = operand.analyze(context);
-        operand.type().mustMatchExpected(line(), Type.INT);
-        type = Type.INT;
+        if (operand.type() == Type.INT) {
+            type = Type.INT;
+        } else if (operand.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (operand.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
+        } else {
+            type = Type.INT;
+        }
         return this;
     }
 
@@ -123,7 +126,13 @@ class JNegateOp extends JUnaryExpression {
      */
     public void codegen(CLEmitter output) {
         operand.codegen(output);
-        output.addNoArgInstruction(INEG);
+        if (type == Type.INT) {
+            output.addNoArgInstruction(INEG);
+        } else if (type == Type.LONG) {
+            output.addNoArgInstruction(LNEG);
+        } else if (type == Type.DOUBLE) {
+            output.addNoArgInstruction(DNEG);
+        }
     }
 }
 
@@ -256,8 +265,15 @@ class JUnaryPlusOp extends JUnaryExpression {
      */
     public JExpression analyze(Context context) {
         operand = operand.analyze(context);
-        operand.type().mustMatchExpected(line(), Type.INT);
-        type = Type.INT;
+        if (operand.type() == Type.INT) {
+            type = Type.INT;
+        } else if (operand.type() == Type.LONG) {
+            type = Type.LONG;
+        } else if (operand.type() == Type.DOUBLE) {
+            type = Type.DOUBLE;
+        } else {
+            type = Type.INT;
+        }
         return this;
     }
 
