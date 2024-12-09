@@ -1,0 +1,23 @@
+# Echo.marv (last modified: Mon Dec 09 11:26:00 EST 2024)
+
+0     calln   r12     2               # call method @2
+1     halt                            # halt the machine
+
+# main()V
+
+# B0 (entry)
+2     pushr   r12     r15             # mem[r15++] = r12
+3     pushr   r14     r15             # mem[r15++] = r14
+4     copy    r14     r15             # r14 = r15
+
+# B1
+5     read    r0                      # r0 = read()
+6     write   r0                      # write(r0)
+7     jumpn   8                       # jump to 8
+
+# B2 (exit)
+8     popr    r14     r15             # r14 = mem[--r15]
+9     popr    r12     r15             # r12 = mem[--r15]
+10    jumpr   r12                     # jump to r12
+
+
