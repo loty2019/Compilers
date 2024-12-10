@@ -1,4 +1,4 @@
-# Factorial.marv (last modified: Mon Dec 09 11:25:02 EST 2024)
+# Factorial.marv (last modified: Mon Dec 09 23:11:13 EST 2024)
 
 0     calln   r12     23              # call method @23
 1     halt                            # halt the machine
@@ -9,26 +9,26 @@
 2     pushr   r12     r15             # mem[r15++] = r12
 3     pushr   r14     r15             # mem[r15++] = r14
 4     copy    r14     r15             # r14 = r15
-5     loadn   r0      r0      -3      # r0 = mem[r0 + -3]
+5     loadn   r3      r14     -3      # r3 = mem[r14 + -3]
 
 # B1
 6     set0    r0                      # r0 = 0
-7     jnen    r0      r0      11      # if r0 != r0 jump to 11
+7     jnen    r3      r0      11      # if r3 != r0 jump to 11
 
 # B2
 8     set1    r0                      # r0 = 1
-9     copy    r0      r0              # r0 = r0
+9     copy    r2      r0              # r2 = r0
 10    jumpn   20                      # jump to 20
 
 # B3
-11    set1    r0                      # r0 = 1
-12    sub     r0      r0      r0      # r0 = r0 - r0
-13    pushr   r0      r0              # mem[r0++] = r0
+11    set1    r1                      # r1 = 1
+12    sub     r0      r3      r1      # r0 = r3 - r1
+13    pushr   r0      r15             # mem[r15++] = r0
 14    calln   r12     2               # call method @2
-15    addn    r0      -1              # r0 += -1
-16    copy    r0      r0              # r0 = r0
-17    mul     r0      r0      r0      # r0 = r0 * r0
-18    copy    r0      r0              # r0 = r0
+15    addn    r15     -1              # r15 += -1
+16    copy    r0      r2              # r0 = r2
+17    mul     r1      r3      r0      # r1 = r3 * r0
+18    copy    r2      r1              # r2 = r1
 19    jumpn   20                      # jump to 20
 
 # B4 (exit)
@@ -46,11 +46,11 @@
 
 # B1
 26    read    r0                      # r0 = read()
-27    pushr   r0      r0              # mem[r0++] = r0
+27    pushr   r0      r15             # mem[r15++] = r0
 28    calln   r12     2               # call method @2
-29    addn    r0      -1              # r0 += -1
-30    copy    r0      r0              # r0 = r0
-31    write   r0                      # write(r0)
+29    addn    r15     -1              # r15 += -1
+30    copy    r1      r0              # r1 = r0
+31    write   r1                      # write(r1)
 32    jumpn   33                      # jump to 33
 
 # B2 (exit)
